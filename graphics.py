@@ -36,6 +36,6 @@ class Line:
         self.p1 = p1
         self.p2 = p2
     
-    def draw(self, canvas, fill_colour = "black"):
+    def draw(self, canvas, fill_colour="black"):
         canvas.create_line(self.p1.x, self.p1.y, self.p2.x, self.p2.y, fill=fill_colour, width=2)
         
