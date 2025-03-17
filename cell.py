@@ -15,6 +15,8 @@ class Cell:
         
         
     def draw(self, x1, y1, x2, y2):
+        if self._win is None:
+            return
         self._x1 = x1
         self._x2 = x2
         self._y1 = y1
@@ -39,4 +41,4 @@ class Cell:
         mid_x = abs(to_cell._x2 - to_cell._x1) // 2 + to_cell._x1
         mid_y = abs(to_cell._y2 - to_cell._y1) // 2 + to_cell._y1
         colour = "grey" if undo else "red"
-        self._win.draw_line(Line(Point(mid_x_s, mid_y_s), Point(mid_x, mid_y)), fill_colour = colour)
+        self._win.draw_line(Line(Point(mid_x_s, mid_y_s), Point(mid_x, mid_y)), colour)
