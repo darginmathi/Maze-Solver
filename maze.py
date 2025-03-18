@@ -21,6 +21,8 @@ class Maze:
         
         self._create_cells()
         
+        self._break_entrance_and_exit()
+        
         self._break_walls_r(0, 0)
                 
         self._reset_visited()
@@ -34,8 +36,7 @@ class Maze:
                 column.append(cell)
             self._cells.append(column)
             
-        self._break_entrance_and_exit()
-            
+    def _print_cells(self):
         for i in range(self._num_cols):
             for j in range(self._num_rows):
                 self._draw_cell(i, j)
@@ -74,31 +75,29 @@ class Maze:
             # rng choose where to go
             
             rng = random.choice(to_visit)
-            k, l = rng[0], rng[1]
             
             # break walls by checking the direction
             
-            if i > k:
+            if rng[0] == i - 1:
                 # left
                 self._cells[i][j].has_left_wall = False
-                self._cells[k][l].has_right_wall = False
-            elif i < k:
+                self._cells[i - 1][j].has_right_wall = False
+            elif rng[0] == i + 1:
                 # right
                 self._cells[i][j].has_right_wall = False
-                self._cells[k][l].has_left_wall = False
-            elif j > l:
-                # bot
+                self._cells[i + 1][j].has_left_wall = False
+            elif rng[1] == j + 1:
+                # down
                 self._cells[i][j].has_bottom_wall = False
-                self._cells[k][l].has_top_wall = False
-            elif j < l:
-                #top
+                self._cells[i][j + 1].has_top_wall = False
+            elif rng[1] == j - 1:
+                # up
                 self._cells[i][j].has_top_wall = False
-                self._cells[k][l].has_bottom_wall = False
+                self._cells[i][j - 1].has_bottom_wall = False
             
-            self._draw_cell(i, j)
             # recursion
                 
-            self._break_walls_r(k, l)
+            self._break_walls_r(rng[0], rng[1])
             
     def _reset_visited(self):
         for i in range(self._num_cols):
@@ -125,3 +124,9 @@ class Maze:
         self._win.redraw()
         time.sleep(0.05)
         
+    def _solve(self):
+        return True if self._solve_r(0, 0) is True else False
+    
+    def _solve_r(self, i, j):
+        self._animate()
+        self._cells[i][j]        

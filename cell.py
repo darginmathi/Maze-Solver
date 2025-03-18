@@ -22,6 +22,7 @@ class Cell:
         self._x2 = x2
         self._y1 = y1
         self._y2 = y2
+        
         if self.has_left_wall:
             line = Line(Point(x1, y1), Point(x1, y2))
             self._win.draw_line(line)
