@@ -9,19 +9,23 @@ class Window:
         self.__canvas.pack(fill=BOTH, expand=1)
         self.__running = False
         
-    def redraw(self):
-        self.__root.update_idletasks()
-        self.__root.update()
-        
     def wait_for_close(self):
         self.__running = True
         while self.__running:
             self.redraw()
         print("window closed")
-        
+    
+    # helper method for wait_for_close()
+    
+    def redraw(self):
+        self.__root.update_idletasks()
+        self.__root.update()
+            
     def draw_line(self, line, fill_colour="black"):
         line.draw(self.__canvas, fill_colour)
-            
+
+    # used in __init__
+    
     def close(self):
         self.__running = False
         
@@ -35,6 +39,8 @@ class Line:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
+    
+    # helper method for draw_line()
     
     def draw(self, canvas, fill_colour="black"):
         canvas.create_line(self.p1.x, self.p1.y, self.p2.x, self.p2.y, fill=fill_colour, width=2)
